@@ -28,7 +28,7 @@ namespace API.Controllers
             if (product == null)
                 return NotFound();
 
-            return Ok(_productsService.Find(id));
+            return Ok(product);
         }
     }
 }
