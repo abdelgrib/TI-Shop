@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Item from "./item";
+import CartItem from "./cartItem";
 
 class Cart extends Component {
   render() {
@@ -12,11 +12,12 @@ class Cart extends Component {
           Reset
         </button>
         {this.props.items.map(item => (
-          <Item
+          <CartItem
             key={item.id}
             item={item}
             onDelete={this.props.onDelete}
             onIncrement={this.props.onIncrement}
+            onDecrement={this.props.onDecrement}
           />
         ))}
       </div>

@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 
 const NavBar = props => {
   return (
     <nav className="navbar navbar-light bg-light">
       <a className="navbar-brand" href="#">
-        Panier{" "}
+        Total panier{" "}
         <span className="badge badge-pill badge-secondary">
           {props.totalQuantity}
         </span>

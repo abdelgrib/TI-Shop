@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Item extends Component {
+class CartItem extends Component {
   render() {
     return (
       <div>
@@ -10,6 +10,12 @@ class Item extends Component {
           className="btn btn-secondary btn-sm"
         >
           Increment
+        </button>
+        <button
+          onClick={() => this.props.onDecrement(this.props.item)}
+          className="btn btn-secondary btn-sm m-2"
+        >
+          Decrement
         </button>
         <button
           onClick={() => this.props.onDelete(this.props.item.id)}
@@ -32,4 +38,4 @@ class Item extends Component {
   }
 }
 
-export default Item;
+export default CartItem;
