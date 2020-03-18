@@ -4,10 +4,11 @@ const NavBar = props => {
   return (
     <nav className="navbar navbar-light bg-light">
       <a className="navbar-brand" href="#">
-        Total panier{" "}
+        Prix total{" "}
         <span className="badge badge-pill badge-secondary">
-          {props.totalQuantity}
-        </span>
+          {props.totalPrice}
+        </span>{" "}
+        €
       </a>
     </nav>
   );

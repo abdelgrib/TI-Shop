@@ -7,16 +7,12 @@ import Market from "./components/market";
 class App extends Component {
   state = {
     marketItems: [],
-    cartItems: [{ id: 1, quantity: 0 }]
+    cartItems: []
   };
   render() {
     return (
       <React.Fragment>
-        <NabBar
-          totalQuantity={
-            this.state.cartItems.filter(x => x.quantity > 0).length
-          }
-        />
+        <NabBar totalPrice={this.totalPrice()} />
         <main className="container">
           <span>Panier</span>
           <hr style={{ height: "30px" }}></hr>
@@ -39,6 +35,7 @@ class App extends Component {
     fetch("http://localhost:5000/api/products")
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         this.setState({ marketItems: data });
       })
       .catch(console.log);
@@ -50,7 +47,10 @@ class App extends Component {
       const newItem = newItems[index];
       newItems[index] = { ...newItem };
       newItems[index].quantity++;
-    } else newItems.push(item);
+    } else {
+      item.quantity = 1;
+      newItems.push(item);
+    }
 
     this.setState({ cartItems: newItems });
   };
@@ -80,6 +80,20 @@ class App extends Component {
       return x;
     });
     this.setState({ cartItems: newItems });
+  };
+  totalPrice = () => {
+    let totalPrice = 0;
+    this.state.cartItems.forEach(item => {
+      let quantity = item.quantity;
+      if (item.discount > 1) {
+        var discountQuantity =
+          Math.floor(item.quantity / item.discount) * (item.discount - 1);
+        var regularQuantity = item.quantity % item.discount;
+        quantity = discountQuantity + regularQuantity;
+      }
+      totalPrice += item.price * quantity;
+    });
+    return totalPrice;
   };
 }
 

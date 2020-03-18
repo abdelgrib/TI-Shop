@@ -35,7 +35,9 @@ namespace API._Application.Services.Concrete
             {
                 Id = product.Id,
                 Name = product.Name,
-                Type = product.Type
+                Type = product.Type,
+                Price = product.Price,
+                Discount = product.Discount
             };
         }
     }
