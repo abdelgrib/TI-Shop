@@ -17,7 +17,7 @@ class MarketItem extends Component {
             onClick={() => this.props.onAdd(this.props.item)}
             className="btn btn-primary btn-sm m-2"
           >
-            Add
+            Ajouter au panier
           </button>
         </div>
       </div>

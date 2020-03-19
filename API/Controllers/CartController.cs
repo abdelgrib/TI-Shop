@@ -16,9 +16,12 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CartDto cart)
+        public IActionResult Create(CartDto dto)
         {
-            return NoContent();
+            var result = _cartService.Create(dto);
+            if (!result)
+                return BadRequest();
+            return Ok();
         }
     }
 }

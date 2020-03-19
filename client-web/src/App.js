@@ -5,6 +5,7 @@ import Cart from "./components/cart";
 import Market from "./components/market";
 
 class App extends Component {
+  baseUrl = "http://localhost:5000/api/";
   state = {
     marketItems: [],
     cartItems: []
@@ -19,6 +20,8 @@ class App extends Component {
           <Cart
             items={this.state.cartItems}
             onReset={this.handleReset}
+            onValidate={this.handleValidate}
+            canValidate={this.canValidate}
             onDelete={this.handleDelete}
             onIncrement={this.handleIncrement}
             onDecrement={this.handleDecrement}
@@ -32,14 +35,37 @@ class App extends Component {
     );
   }
   componentDidMount() {
-    fetch("http://localhost:5000/api/products")
+    fetch(this.baseUrl + "products")
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.setState({ marketItems: data });
       })
       .catch(console.log);
   }
+  handleValidate = () => {
+    if (this.canValidate()) {
+      fetch(this.baseUrl + "cart", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          products: this.state.cartItems
+        })
+      })
+        .then(response => {
+          console.log(response);
+          this.setState({ cartItems: [] });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  };
+  canValidate = () => {
+    return this.state.cartItems.filter(x => x.quantity > 0).length > 0;
+  };
   handleAdd = item => {
     const newItems = [...this.state.cartItems];
     const index = newItems.findIndex(x => x.id === item.id);

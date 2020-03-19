@@ -24,6 +24,7 @@ namespace API
         {
             services.AddCors();
             services.AddControllers();
+            services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<IProductsService, ProductsService>();
             services.AddScoped<ICartService, CartService>();
